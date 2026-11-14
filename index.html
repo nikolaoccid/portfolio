@@ -7,71 +7,7 @@
 <meta name="description" content="Software engineer in Split, Croatia. React Native, Next.js, Node.js, TypeScript.">
 <meta name="color-scheme" content="dark light">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230d1117'/%3E%3Cpath d='M7 10l7 6-7 6' fill='none' stroke='%233fb950' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M17 23h8' stroke='%233fb950' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E">
-<style>
-  :root {
-    --bg: #fbfaf8; --fg: #1d1d1b; --muted: #5f5e5a; --line: #dedbd3; --accent: #1f5fbf; --green: #1a7f37; --panel: #f1efe9;
-  }
-  @media (prefers-color-scheme: dark) {
-    :root { --bg: #0d1117; --fg: #d5dbe3; --muted: #8b949e; --line: #262d36; --accent: #58a6ff; --green: #3fb950; --panel: #151b23; }
-  }
-  * { box-sizing: border-box; }
-  html { -webkit-text-size-adjust: 100%; }
-  body {
-    margin: 0; background: var(--bg); color: var(--fg);
-    font: 15px/1.65 ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
-  }
-  main { max-width: 48rem; margin: 0 auto; padding: 3rem 1rem 4rem; }
-  a { color: var(--accent); text-underline-offset: 3px; }
-  a:hover { text-decoration-thickness: 2px; }
-  a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 2px; }
-
-  .prompt { color: var(--green); user-select: none; }
-  .cmd { color: var(--muted); }
-  h1 { font-size: 1.9rem; line-height: 1.2; margin: .3rem 0 .4rem; font-weight: 700; letter-spacing: -.01em; }
-  h2 { font-size: 1rem; margin: 3rem 0 1rem; font-weight: 600; }
-  h3 { font-size: 1rem; margin: 0; font-weight: 600; }
-  p { margin: 0 0 .8rem; }
-  .lead { color: var(--muted); margin: 0 0 1rem; }
-  .links a { margin-right: 1.25rem; white-space: nowrap; }
-
-  .metrics { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); margin: 1.25rem 0 0; }
-  .metrics div { background: var(--panel); padding: .75rem .9rem; }
-  @media (min-width: 40rem) { .metrics { grid-template-columns: repeat(4, 1fr); } }
-  .metrics dt { color: var(--muted); font-size: .8rem; }
-  .metrics dd { margin: .1rem 0 0; font-size: 1.15rem; font-weight: 700; color: var(--green); }
-
-  pre { margin: 0 0 1rem; padding: .85rem 1rem; background: var(--panel); border: 1px solid var(--line); overflow-x: auto; font: inherit; font-size: .85rem; line-height: 1.55; }
-  .caption { color: var(--muted); font-size: .85rem; margin: -.4rem 0 1.5rem; }
-
-  .item { padding: 1.1rem 0; border-top: 1px solid var(--line); }
-  .item:last-of-type { border-bottom: 1px solid var(--line); }
-  .meta { color: var(--muted); font-size: .85rem; margin: .1rem 0 .55rem; }
-  ul { margin: 0; padding-left: 1.2rem; }
-  li { margin: .25rem 0; }
-  li::marker { color: var(--green); content: "> "; }
-
-  .repos { width: 100%; border-collapse: collapse; }
-  .repos td { padding: .55rem .6rem .55rem 0; vertical-align: top; border-top: 1px solid var(--line); }
-  .repos tr:last-child td { border-bottom: 1px solid var(--line); }
-  .repos td:first-child { white-space: nowrap; }
-  .tag { color: var(--muted); font-size: .85rem; }
-
-  dl.kv { margin: 0; display: grid; grid-template-columns: max-content 1fr; gap: .3rem 1.25rem; }
-  dl.kv dt { color: var(--green); }
-  dl.kv dd { margin: 0; overflow-wrap: anywhere; }
-
-  .cursor { display: inline-block; width: .6em; height: 1.1em; background: var(--green); vertical-align: text-bottom; margin-left: .2em; animation: blink 1.1s steps(1) infinite; }
-  @keyframes blink { 50% { opacity: 0; } }
-  @media (prefers-reduced-motion: reduce) { .cursor { animation: none; } }
-  @media (max-width: 34rem) {
-    .repos, .repos tbody, .repos tr, .repos td { display: block; }
-    .repos td { border: 0; padding: 0; }
-    .repos tr { padding: .6rem 0; border-top: 1px solid var(--line); }
-    .repos tr:last-child { border-bottom: 1px solid var(--line); }
-    .repos td:first-child { white-space: normal; }
-  }
-  @media (max-width: 34rem) { dl.kv { grid-template-columns: 1fr; gap: 0; } dl.kv dd { margin-bottom: .6rem; } }
-</style>
+<link rel="stylesheet" href="/style.css">
 </head>
 <body>
 <main>
@@ -114,6 +50,7 @@
     <ul>
       <li>Cut store reads per tap from 507 to 8 and saved the team a planned SQLite rewrite: a 10k-step test project traced the lag to two slow algorithms.</li>
       <li>Offline actions safe to retry: idempotency keys that survive restarts, an ordered queue, duplicate checks on the server, design written down in ADRs.</li>
+      <li>Write-up: <a href="/notes/507-to-8.html">We planned a database migration. A 10,000-step test project showed we didn't need one.</a></li>
     </ul>
   </div>
   <div class="item">

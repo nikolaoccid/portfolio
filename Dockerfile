@@ -1,3 +1,4 @@
 FROM nginx:alpine
-COPY index.html /usr/share/nginx/html/index.html
+COPY index.html style.css /usr/share/nginx/html/
+COPY notes /usr/share/nginx/html/notes
 EXPOSE 80

@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>507 to 8: skipping a SQLite migration | Nikola Occidentale</title>
+<meta name="description" content="A 10,000-step test project showed an offline-first React Native app did not need a SQLite migration; two algorithms were the problem.">
+<meta name="color-scheme" content="dark light">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230d1117'/%3E%3Cpath d='M7 10l7 6-7 6' fill='none' stroke='%233fb950' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M17 23h8' stroke='%233fb950' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<main>
+  <p class="back cmd"><a href="/">&larr; nikola.technobabble.hr</a></p>
+  <article>
+    <h1>We planned a database migration. A 10,000-step test project showed we didn't need one.</h1>
+
+    <p>Large projects in our offline-first React Native app were slow, and the plan was to move local storage to SQLite. Before starting, I wanted to know whether storage was the bottleneck.</p>
+
+    <h2>Measuring</h2>
+    <p>I built a synthetic project that scales from 100 to 10,000 steps, and a harness that runs the real download, store and tap code against it with storage mocked by a plain Map. That removes storage cost, so what remains is pure JavaScript work, the part a storage swap would not touch. The numbers come from Node, not a phone, so the scaling is the result, not the milliseconds.</p>
+
+    <h2>What it showed</h2>
+    <p>Two problems, neither in storage:</p>
+    <ol>
+      <li>One tap cost 1 + tasks + 6 store reads, because completion counts were recomputed by reading every task's criteria and deep-cloning the project. At 500 tasks that was 507 reads and a 141 KB rewrite per tap.</li>
+      <li>Writes made during a download were change-tracked: five undo records per step, 50,000 at 10,000 steps, held in memory until the next user action absorbed them. That is a correctness bug, not only a cost: removing that action from the offline queue could have undone a download.</li>
+    </ol>
+    <p>Opening a task was already about 0 ms and under 15 KB at any project size, so the data model was fine.</p>
+
+    <h2>Options</h2>
+    <p>Migrate to SQLite, or fix the two algorithms behind the existing storage interface. The SQLite library we had linked had no working driver and hung on a 10,000-row batch in the test, so it would have added risk without removing either problem. I chose the second.</p>
+
+    <h2>Result</h2>
+    <p>A tap now reads only the task that changed and derives the totals in memory: 8 store reads at every project size, down from 507. Leaked change records after a download: 0. Downloads were 8 to 14% faster. A characterization test showed every stored key and value unchanged; only the read count moved.</p>
+
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>steps</th><th>tasks</th><th>reads before</th><th>reads after</th></tr></thead>
+        <tbody>
+          <tr><td>100</td><td>10</td><td>17</td><td>8</td></tr>
+          <tr><td>1,000</td><td>20</td><td>27</td><td>8</td></tr>
+          <tr><td>5,000</td><td>50</td><td>57</td><td>8</td></tr>
+          <tr><td>10,000</td><td>100</td><td>107</td><td>8</td></tr>
+          <tr><td>10,000</td><td>500</td><td>507</td><td>8</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="caption">Store reads per tap. Leaked change records after a download: 500 to 50,000 before (five per step), 0 after, in every row. Node, storage mocked.</p>
+
+    <h2>Still to check</h2>
+    <p>Node is not a phone: expect roughly 3 to 6 times slower on a device.</p>
+  </article>
+</main>
+</body>
+</html>

@@ -5,69 +5,147 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Nikola Occidentale</title>
 <meta name="description" content="Software engineer in Split, Croatia. React Native, Next.js, Node.js, TypeScript.">
+<meta name="color-scheme" content="dark light">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230d1117'/%3E%3Cpath d='M7 10l7 6-7 6' fill='none' stroke='%233fb950' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M17 23h8' stroke='%233fb950' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E">
 <style>
   :root {
-    --bg: #fbfaf8; --fg: #1d1d1b; --muted: #5f5e5a; --line: #e2e0da; --accent: #1f5fbf;
+    --bg: #fbfaf8; --fg: #1d1d1b; --muted: #5f5e5a; --line: #dedbd3; --accent: #1f5fbf; --green: #1a7f37; --panel: #f1efe9;
   }
   @media (prefers-color-scheme: dark) {
-    :root { --bg: #151514; --fg: #ecebe7; --muted: #a3a29c; --line: #2b2b29; --accent: #7fb0ff; }
+    :root { --bg: #0d1117; --fg: #d5dbe3; --muted: #8b949e; --line: #262d36; --accent: #58a6ff; --green: #3fb950; --panel: #151b23; }
   }
   * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
   body {
     margin: 0; background: var(--bg); color: var(--fg);
-    font: 17px/1.6 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    font: 15px/1.65 ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
   }
-  main { max-width: 42rem; margin: 0 auto; padding: 4rem 1rem 3rem; }
-  h1 { font-size: 2rem; line-height: 1.2; margin: 0 0 .25rem; }
-  h2 { font-size: .8rem; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); margin: 3rem 0 1rem; font-weight: 600; }
-  h3 { font-size: 1.05rem; margin: 0 0 .25rem; }
-  p { margin: 0 0 .75rem; }
-  .lead { color: var(--muted); margin-bottom: 1.25rem; }
-  .item { padding: 1rem 0; border-top: 1px solid var(--line); }
-  .item:last-child { border-bottom: 1px solid var(--line); }
-  .item p { margin: 0; color: var(--muted); }
+  main { max-width: 48rem; margin: 0 auto; padding: 3rem 1rem 4rem; }
   a { color: var(--accent); text-underline-offset: 3px; }
-  .stack { color: var(--muted); }
-  nav a { margin-right: 1.25rem; }
+  a:hover { text-decoration-thickness: 2px; }
+  a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 2px; }
+
+  .prompt { color: var(--green); user-select: none; }
+  .cmd { color: var(--muted); }
+  h1 { font-size: 1.9rem; line-height: 1.2; margin: .3rem 0 .4rem; font-weight: 700; letter-spacing: -.01em; }
+  h2 { font-size: 1rem; margin: 3rem 0 1rem; font-weight: 600; }
+  h3 { font-size: 1rem; margin: 0; font-weight: 600; }
+  p { margin: 0 0 .8rem; }
+  .lead { color: var(--muted); margin: 0 0 1rem; }
+  .links a { margin-right: 1.25rem; white-space: nowrap; }
+
+  .metrics { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); margin: 1.25rem 0 0; }
+  .metrics div { background: var(--panel); padding: .75rem .9rem; }
+  @media (min-width: 40rem) { .metrics { grid-template-columns: repeat(4, 1fr); } }
+  .metrics dt { color: var(--muted); font-size: .8rem; }
+  .metrics dd { margin: .1rem 0 0; font-size: 1.15rem; font-weight: 700; color: var(--green); }
+
+  pre { margin: 0 0 1rem; padding: .85rem 1rem; background: var(--panel); border: 1px solid var(--line); overflow-x: auto; font: inherit; font-size: .85rem; line-height: 1.55; }
+  .caption { color: var(--muted); font-size: .85rem; margin: -.4rem 0 1.5rem; }
+
+  .item { padding: 1.1rem 0; border-top: 1px solid var(--line); }
+  .item:last-of-type { border-bottom: 1px solid var(--line); }
+  .meta { color: var(--muted); font-size: .85rem; margin: .1rem 0 .55rem; }
+  ul { margin: 0; padding-left: 1.2rem; }
+  li { margin: .25rem 0; }
+  li::marker { color: var(--green); content: "> "; }
+
+  .repos { width: 100%; border-collapse: collapse; }
+  .repos td { padding: .55rem .6rem .55rem 0; vertical-align: top; border-top: 1px solid var(--line); }
+  .repos tr:last-child td { border-bottom: 1px solid var(--line); }
+  .repos td:first-child { white-space: nowrap; }
+  .tag { color: var(--muted); font-size: .85rem; }
+
+  dl.kv { margin: 0; display: grid; grid-template-columns: max-content 1fr; gap: .3rem 1.25rem; }
+  dl.kv dt { color: var(--green); }
+  dl.kv dd { margin: 0; overflow-wrap: anywhere; }
+
+  .cursor { display: inline-block; width: .6em; height: 1.1em; background: var(--green); vertical-align: text-bottom; margin-left: .2em; animation: blink 1.1s steps(1) infinite; }
+  @keyframes blink { 50% { opacity: 0; } }
+  @media (prefers-reduced-motion: reduce) { .cursor { animation: none; } }
+  @media (max-width: 34rem) {
+    .repos, .repos tbody, .repos tr, .repos td { display: block; }
+    .repos td { border: 0; padding: 0; }
+    .repos tr { padding: .6rem 0; border-top: 1px solid var(--line); }
+    .repos tr:last-child { border-bottom: 1px solid var(--line); }
+    .repos td:first-child { white-space: normal; }
+  }
+  @media (max-width: 34rem) { dl.kv { grid-template-columns: 1fr; gap: 0; } dl.kv dd { margin-bottom: .6rem; } }
 </style>
 </head>
 <body>
 <main>
+  <p class="cmd"><span class="prompt" aria-hidden="true">nikola@split:~$ </span><span aria-hidden="true">whoami</span></p>
   <h1>Nikola Occidentale</h1>
   <p class="lead">Software engineer in Split, Croatia. React Native, Next.js, Node.js, TypeScript.</p>
   <p>I take React Native and Next.js products from client scope to store release and keep them running in production.</p>
-  <nav>
-    <a href="mailto:nikolaoccid@gmail.com">Email</a>
-    <a href="https://github.com/nikolaoccid">GitHub</a>
-    <a href="https://www.linkedin.com/in/nikola-occidentale/">LinkedIn</a>
-  </nav>
+  <p class="links"><a href="mailto:nikolaoccid@gmail.com">email</a><a href="https://github.com/nikolaoccid">github</a><a href="https://www.linkedin.com/in/nikola-occidentale/">linkedin</a></p>
 
-  <h2>Selected work</h2>
+  <dl class="metrics">
+    <div><dt>daily_users_peak</dt><dd>20k</dd></div>
+    <div><dt>store_rating</dt><dd>2 &rarr; 4</dd></div>
+    <div><dt>fix_delivery</dt><dd>~2 min</dd></div>
+    <div><dt>reads_per_tap</dt><dd>507 &rarr; 8</dd></div>
+  </dl>
+
+  <h2><span class="prompt" aria-hidden="true">$ </span><span class="cmd" aria-hidden="true">cat </span>work.md</h2>
+
+  <pre aria-label="Diagram: git push, CI builds and signs the update (blocked if it needs a native build), S3, Go update server, the app verifies the signature">git push
+ -> CI builds + signs the update
+    (blocked: needs a native build)
+ -> S3
+ -> Go update server
+ -> app verifies the signature</pre>
+  <p class="caption">Over-the-air updates for the React Native app, built for the Esports World Cup.</p>
+
   <div class="item">
     <h3>Esports World Cup app</h3>
-    <p>Led the mobile team for the official Expo/React Native app of the world's largest esports event: 20k daily active users at the event peak, store rating from 2 to 4 stars, four languages including right-to-left Arabic. Built our own over-the-air update server, so fixes reach users in about 2 minutes instead of a store review.</p>
+    <p class="meta">Expo / React Native. Led the mobile team.</p>
+    <ul>
+      <li>20k daily active users at the event peak; store rating from 2 to 4 stars since taking over.</li>
+      <li>Own over-the-air update server (above): fixes reach users in about 2 minutes instead of a store review.</li>
+      <li>Four languages including right-to-left Arabic; scope and priorities agreed directly with the client.</li>
+      <li>Next.js API layer: caching stopped it hitting the CMS 30 times a second; live scores for all tournaments over one SSE stream (Go, protobuf).</li>
+    </ul>
   </div>
   <div class="item">
     <h3>ActiveOversight</h3>
-    <p>Offline-first React Native app. Cut store reads per tap from 507 to 8 and saved the team a planned SQLite rewrite. Made offline actions safe to retry with idempotency keys and an ordered queue.</p>
+    <p class="meta">Offline-first React Native + Ruby on Rails.</p>
+    <ul>
+      <li>Cut store reads per tap from 507 to 8 and saved the team a planned SQLite rewrite: a 10k-step test project traced the lag to two slow algorithms.</li>
+      <li>Offline actions safe to retry: idempotency keys that survive restarts, an ordered queue, duplicate checks on the server, design written down in ADRs.</li>
+    </ul>
   </div>
   <div class="item">
     <h3>Stylight and mybestbrands</h3>
-    <p>Owned the move of stylight.de (11 locales) from a legacy Java frontend to a Next.js 15 / Turborepo monorepo, including redirects and structured data for SEO.</p>
+    <p class="meta">Inspiration Commerce Group. Directly responsible individual.</p>
+    <ul>
+      <li>Moved stylight.de (11 locales) from a legacy Java frontend to a Next.js 15 / Turborepo monorepo, with redirects and structured data for SEO.</li>
+    </ul>
   </div>
 
-  <h2>Public code</h2>
-  <div class="item">
-    <h3><a href="https://github.com/nikolaoccid/family-tracker-mobile">family-tracker-mobile</a> and <a href="https://github.com/nikolaoccid/family-tracker">family-tracker</a></h3>
-    <p>Master's thesis: a family location-sharing app with geofenced safe zones, chat and alerts. Expo/React Native and NestJS.</p>
-  </div>
-  <div class="item">
-    <h3><a href="https://github.com/nikolaoccid/svi-zajedno-frontend">svi-zajedno-frontend</a> and <a href="https://github.com/nikolaoccid/svi-zajedno-backend">svi-zajedno-backend</a></h3>
-    <p>Activity and attendance tracker used by a Croatian NGO since 2023. React, NestJS, PostgreSQL.</p>
-  </div>
+  <h2><span class="prompt" aria-hidden="true">$ </span><span class="cmd" aria-hidden="true">ls </span>public-repos/</h2>
+  <table class="repos">
+    <tbody>
+      <tr><td><a href="https://github.com/nikolaoccid/family-tracker-mobile">family-tracker-mobile</a></td><td>Expo / React Native app: location sharing with geofenced safe zones, chat, alerts. Master's thesis. <span class="tag">TypeScript</span></td></tr>
+      <tr><td><a href="https://github.com/nikolaoccid/family-tracker">family-tracker</a></td><td>NestJS API for it: PostgreSQL, Socket.IO, Stripe. <span class="tag">TypeScript</span></td></tr>
+      <tr><td><a href="https://github.com/nikolaoccid/svi-zajedno-frontend">svi-zajedno-frontend</a></td><td>Activity and attendance tracker used by a Croatian NGO since 2023. <span class="tag">React, TypeScript</span></td></tr>
+      <tr><td><a href="https://github.com/nikolaoccid/svi-zajedno-backend">svi-zajedno-backend</a></td><td>Its API. <span class="tag">NestJS, PostgreSQL</span></td></tr>
+    </tbody>
+  </table>
 
-  <h2>Stack</h2>
-  <p class="stack">TypeScript, JavaScript, React Native (Expo and bare), React, Next.js, Node.js, NestJS, PostgreSQL, GraphQL, AWS. Also worked in Go, Ruby on Rails and Java.</p>
+  <h2><span class="prompt" aria-hidden="true">$ </span><span class="cmd" aria-hidden="true">cat </span>stack.txt</h2>
+  <dl class="kv">
+    <dt>languages</dt><dd>TypeScript, JavaScript; also worked in Go, Ruby, Java</dd>
+    <dt>mobile</dt><dd>React Native (Expo and bare), iOS and Android</dd>
+    <dt>web</dt><dd>React, Next.js, Node.js, NestJS</dd>
+    <dt>data</dt><dd>PostgreSQL, Prisma, Redis; REST, GraphQL, SSE, WebSockets</dd>
+    <dt>ops</dt><dd>GitHub Actions, Docker, AWS, Fastlane, Expo Updates, Sentry</dd>
+  </dl>
+
+  <h2><span class="prompt" aria-hidden="true">$ </span><span class="cmd" aria-hidden="true">mail </span>nikola</h2>
+  <p class="links"><a href="mailto:nikolaoccid@gmail.com">nikolaoccid@gmail.com</a></p>
+  <p class="cmd"><span class="prompt" aria-hidden="true">nikola@split:~$ </span><span class="cursor" aria-hidden="true"></span></p>
 </main>
 </body>
 </html>

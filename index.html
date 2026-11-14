@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Nikola Occidentale</title>
+<meta name="description" content="Software engineer in Split, Croatia. React Native, Next.js, Node.js, TypeScript.">
+<style>
+  :root {
+    --bg: #fbfaf8; --fg: #1d1d1b; --muted: #5f5e5a; --line: #e2e0da; --accent: #1f5fbf;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg: #151514; --fg: #ecebe7; --muted: #a3a29c; --line: #2b2b29; --accent: #7fb0ff; }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--fg);
+    font: 17px/1.6 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  }
+  main { max-width: 42rem; margin: 0 auto; padding: 4rem 1rem 3rem; }
+  h1 { font-size: 2rem; line-height: 1.2; margin: 0 0 .25rem; }
+  h2 { font-size: .8rem; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); margin: 3rem 0 1rem; font-weight: 600; }
+  h3 { font-size: 1.05rem; margin: 0 0 .25rem; }
+  p { margin: 0 0 .75rem; }
+  .lead { color: var(--muted); margin-bottom: 1.25rem; }
+  .item { padding: 1rem 0; border-top: 1px solid var(--line); }
+  .item:last-child { border-bottom: 1px solid var(--line); }
+  .item p { margin: 0; color: var(--muted); }
+  a { color: var(--accent); text-underline-offset: 3px; }
+  .stack { color: var(--muted); }
+  nav a { margin-right: 1.25rem; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Nikola Occidentale</h1>
+  <p class="lead">Software engineer in Split, Croatia. React Native, Next.js, Node.js, TypeScript.</p>
+  <p>I take React Native and Next.js products from client scope to store release and keep them running in production.</p>
+  <nav>
+    <a href="mailto:nikolaoccid@gmail.com">Email</a>
+    <a href="https://github.com/nikolaoccid">GitHub</a>
+    <a href="https://www.linkedin.com/in/nikola-occidentale/">LinkedIn</a>
+  </nav>
+
+  <h2>Selected work</h2>
+  <div class="item">
+    <h3>Esports World Cup app</h3>
+    <p>Led the mobile team for the official Expo/React Native app of the world's largest esports event: 20k daily active users at the event peak, store rating from 2 to 4 stars, four languages including right-to-left Arabic. Built our own over-the-air update server, so fixes reach users in about 2 minutes instead of a store review.</p>
+  </div>
+  <div class="item">
+    <h3>ActiveOversight</h3>
+    <p>Offline-first React Native app. Cut store reads per tap from 507 to 8 and saved the team a planned SQLite rewrite. Made offline actions safe to retry with idempotency keys and an ordered queue.</p>
+  </div>
+  <div class="item">
+    <h3>Stylight and mybestbrands</h3>
+    <p>Owned the move of stylight.de (11 locales) from a legacy Java frontend to a Next.js 15 / Turborepo monorepo, including redirects and structured data for SEO.</p>
+  </div>
+
+  <h2>Public code</h2>
+  <div class="item">
+    <h3><a href="https://github.com/nikolaoccid/family-tracker-mobile">family-tracker-mobile</a> and <a href="https://github.com/nikolaoccid/family-tracker">family-tracker</a></h3>
+    <p>Master's thesis: a family location-sharing app with geofenced safe zones, chat and alerts. Expo/React Native and NestJS.</p>
+  </div>
+  <div class="item">
+    <h3><a href="https://github.com/nikolaoccid/svi-zajedno-frontend">svi-zajedno-frontend</a> and <a href="https://github.com/nikolaoccid/svi-zajedno-backend">svi-zajedno-backend</a></h3>
+    <p>Activity and attendance tracker used by a Croatian NGO since 2023. React, NestJS, PostgreSQL.</p>
+  </div>
+
+  <h2>Stack</h2>
+  <p class="stack">TypeScript, JavaScript, React Native (Expo and bare), React, Next.js, Node.js, NestJS, PostgreSQL, GraphQL, AWS. Also worked in Go, Ruby on Rails and Java.</p>
+</main>
+</body>
+</html>
